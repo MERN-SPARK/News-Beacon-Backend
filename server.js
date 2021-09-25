@@ -11,7 +11,7 @@ const mongoose = require("mongoose")
 const PORT = process.env.PORT
 app.use(express.json())
 // start call the function
-const TopNewsController = require("./controllers/topnews.Controller")
+const TopNewsController = require("./controllers/TopNews.Controller")
 const handleWeatherAPI = require("./controllers/Weather.Controller")
 const APIOneFilterController = require("./controllers/APIonefilter.Controller")
 const APIOneSearchController = require("./controllers/APIonesearch.Controller")

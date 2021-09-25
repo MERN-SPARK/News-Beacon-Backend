@@ -29,10 +29,11 @@ app.get("/", (req, res) => {
 })
 
 // start call API
-// app.get("/TopNews", TopNewsController)
-app.get("/WeatherNews", handleWeatherAPI)
-// app.get("/APIOneFilter", APIOneFilterController)
-// app.get("/APIOneSearch", APIOneSearchController)
+app.get("/TopNews", TopNewsController)
+app.get("/PopularNews", PopularNewsController)
+// app.get('/WeatherNews',WeatherNewsController)
+// app.get('/APIOneFilter',APIOneFilterController)
+// app.get('/APIOneSearch',APIOneSearchController)
 
 // end call API
 

@@ -12,6 +12,7 @@ const mongoose = require('mongoose')
 app.use(express.json());
 // start call the function
 const {TopNewsController} = require('./controller/topnews.controller')
+const {PopularNewsController} = require('./controller/popularnew.controller')
 // const WeatherNewsController = require('./controller/weathernews.controller')
 // const APIOneFilterController = require('./controller/APIonefilter.controller.js')
 // const APIOneSearchController = require('./controller/APIonesearch.controller')
@@ -28,6 +29,7 @@ app.get("/", (req, res) => {
 
 // start call API
 app.get('/TopNews',TopNewsController)
+app.get('/PopularNews',PopularNewsController)
 // app.get('/WeatherNews',WeatherNewsController)
 // app.get('/APIOneFilter',APIOneFilterController)
 // app.get('/APIOneSearch',APIOneSearchController)

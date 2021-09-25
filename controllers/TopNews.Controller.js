@@ -1,14 +1,14 @@
-const axios = require("axios")
-const TopNewsModel = require("../models/topnews.Model")
+const axios = require("axios");
+const TopNewsModel = require("../models/TopNews.Model");
 
 let TopNewsController = async (req, res) => {
   let topNews = await axios
     .get(
       "https://api.nytimes.com/svc/topstories/v2/world.json?api-key=Xq7SueEX2MObTt9MBodrY1e4FIiQb42e"
     )
-    .then((response) => parseTopMovie(response.data))
-  res.status(200).json(topNews)
-}
+    .then((response) => parseTopMovie(response.data));
+  res.status(200).json(topNews);
+};
 
 function parseTopMovie(topnewsdata) {
   try {
@@ -19,12 +19,12 @@ function parseTopMovie(topnewsdata) {
         item.url,
         item.published_date,
         item.multimedia[0].url
-      )
-    })
-    return Promise.resolve(TopNewsSummaries)
+      );
+    });
+    return Promise.resolve(TopNewsSummaries);
   } catch (e) {
-    return Promise.reject(e)
+    return Promise.reject(e);
   }
 }
 
-module.exports = { TopNewsController }
+module.exports = { TopNewsController };

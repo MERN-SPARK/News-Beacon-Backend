@@ -11,12 +11,12 @@ const mongoose = require('mongoose')
 // const PORT = process.env.PORT
 app.use(express.json());
 // start call the function
-const TopNewsController = require('./controller/topnews.controller')
-const WeatherNewsController = require('./controller/weathernews.controller')
-const APIOneFilterController = require('./controller/APIonefilter.controller')
-const APIOneSearchController = require('./controller/APIonesearch.controller')
+const {TopNewsController} = require('./controller/topnews.controller')
+// const WeatherNewsController = require('./controller/weathernews.controller')
+// const APIOneFilterController = require('./controller/APIonefilter.controller.js')
+// const APIOneSearchController = require('./controller/APIonesearch.controller')
 
-const APItwocontroller = require('./controller/APItwo.controller')
+// const APItwocontroller = require('./controller/APItwo.controller')
 
 // end call the function
 
@@ -28,9 +28,9 @@ app.get("/", (req, res) => {
 
 // start call API
 app.get('/TopNews',TopNewsController)
-app.get('/WeatherNews',WeatherNewsController)
-app.get('/APIOneFilter',APIOneFilterController)
-app.get('/APIOneSearch',APIOneSearchController)
+// app.get('/WeatherNews',WeatherNewsController)
+// app.get('/APIOneFilter',APIOneFilterController)
+// app.get('/APIOneSearch',APIOneSearchController)
 
 
 

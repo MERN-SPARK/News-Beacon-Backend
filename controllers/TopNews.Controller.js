@@ -18,7 +18,8 @@ function parseTopMovie(topnewsdata) {
         item.abstract,
         item.url,
         item.published_date,
-        item.multimedia[0].url
+        item.multimedia[0].url,
+        topnewsdata.copyright
       );
     });
     return Promise.resolve(TopNewsSummaries);

@@ -14,6 +14,7 @@ let PopularNewsController = async (req, res) => {
 function parsePopularMovie(popularnewsdata) {
   try {
     let PopularNewsSummaries = popularnewsdata.results.map((item) => {
+      // eslint-disable-next-line eqeqeq
       if (item.media[0] != null) {
         let mediaimage = Object.values(item.media[0])[5][2].url;
         return new PopularNewsModel(
@@ -21,7 +22,8 @@ function parsePopularMovie(popularnewsdata) {
           item.abstract,
           item.url,
           item.published_date,
-          mediaimage
+          mediaimage,
+          popularnewsdata.copyright
         );
       }
     });

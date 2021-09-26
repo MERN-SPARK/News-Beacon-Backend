@@ -4,22 +4,28 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
-// const jwksClient=require('jwks-rsa');
+const jwksClient = require("jwks-rsa");
 app.use(cors());
 require("dotenv").config();
 const mongoose = require("mongoose");
-// const PORT = process.env.PORT
+const PORT = process.env.PORT;
 app.use(express.json());
 // start call the function
-const TopNewsController = require("./controller/topnews.controller");
-const WeatherNewsController = require("./controller/weathernews.controller");
-const APIOneFilterController = require("./controller/APIonefilter.controller.js");
-const APIOneSearchController = require("./controller/APIonesearch.controller");
 
-const APItwocontroller = require("./controller/APItwo.controller");
-const getSports = require("./controller/APIonefilter.controller");
+const { TopNewsController } = require("./controllers/TopNews.Controller");
+const {
+  PopularNewsController,
+} = require("./controllers/PopularNews.Controller");
+const {
+  CountryNewsController,
+} = require("./controllers/CountryNews.controller");
+const handleWeatherAPI = require("./controllers/Weather.Controller");
+const handleAPIOneFilter = require("./controllers/APIonefilter.Controller");
+const handleAPIOneSearch = require("./controllers/APIonesearch.Controller");
+const handleAPITwo = require("./controllers/APItwo.Controller");
+const getSports = require("./controllers/APIonefilter.controller");
 
-// end call the function
+// // end call the function
 
 mongoose.connect(
   `mongodb+srv://yaseen_saeed:ya9981063722@cluster0.ulxvz.mongodb.net/project301`,
@@ -31,13 +37,16 @@ app.get("/", (req, res) => {
 });
 
 // start call API
-// app.get("/TopNews", TopNewsController);
-// app.get("/WeatherNews", WeatherNewsController);
+app.get("/TopNews", TopNewsController);
+app.get("/PopularNews", PopularNewsController);
+app.get("/CountryNews", CountryNewsController);
+app.get("/WeatherNews", handleWeatherAPI);
 app.get("/APIOneFilter", getSports);
-// app.get("/APIOneSearch", APIOneSearchController);
+// app.get('/APIOneFilter',APIOneFilterController)
+// app.get('/APIOneSearch',APIOneSearchController)
 
 // end call API
 
-app.listen(8070, () => {
+app.listen(PORT, () => {
   console.log(`listening to port 8070`);
 });

@@ -1,5 +1,5 @@
 const axios = require("axios")
-const TopNewsModel = require("../models/topnews.Model")
+const TopNewsModel = require("../models/TopNews.Model")
 
 let TopNewsController = async (req, res) => {
   let topNews = await axios

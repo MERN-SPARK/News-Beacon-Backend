@@ -1,9 +1,12 @@
 "use strict"
 
 class WeatherModel {
-  constructor(date, description) {
-    this.date = date
+  constructor(description, place, temp, min, max) {
     this.description = description
+    this.place = place
+    this.temp = temp
+    this.min = min
+    this.max = max
   }
 }
 

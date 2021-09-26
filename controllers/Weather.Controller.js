@@ -1,7 +1,7 @@
-"use strict"
+"use strict";
 
-const axios = require("axios")
-const WeatherModel = require("../models/Weather.Model")
+const axios = require("axios");
+const WeatherModel = require("../models/Weather.Model");
 
 const getWeather = (data) => {
   let weather = data.data.map((element) => {
@@ -11,19 +11,19 @@ const getWeather = (data) => {
       element.temp,
       element.min_temp,
       element.max_temp
-    )
-  })
-  return weather
-}
+    );
+  });
+  return weather;
+};
 
 let handleWeatherAPI = async (req, res) => {
-  let city = req.query.city
-  let url = `https://api.weatherbit.io/v2.0/forecast/daily?key=${process.env.WEATHER_API_KEY}&days=3&city=${city}`
+  let city = req.query.city;
+  let url = `https://api.weatherbit.io/v2.0/forecast/daily?key=bfd9692c3bd34ed3adfa0d41306a187d&days=3&city=${city}`;
 
   let response = await axios.get(url).then((res) => {
-    return getWeather(res.data)
-  })
-  res.status(200).json(response)
-}
+    return getWeather(res.data);
+  });
+  res.status(200).json(response);
+};
 
-module.exports = handleWeatherAPI
+module.exports = handleWeatherAPI;

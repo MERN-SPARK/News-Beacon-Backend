@@ -12,12 +12,8 @@ const PORT = process.env.PORT;
 app.use(express.json());
 // start call the function
 const { TopNewsController } = require("./controllers/TopNews.Controller");
-const {
-  PopularNewsController,
-} = require("./controllers/PopularNews.Controller");
-const {
-  CountryNewsController,
-} = require("./controllers/CountryNews.controller");
+const {PopularNewsController} = require("./controllers/PopularNews.Controller");
+const {CountryNewsController} = require("./controllers/CountryNews.controller");
 // const handleWeatherAPI = require("./controllers/Weather.Controller");
 // const APIOneFilterController = require("./controllers/APIonefilter.Controller");
 // const APIOneSearchController = require("./controllers/APIonesearch.Controller");

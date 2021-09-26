@@ -44,7 +44,7 @@ app.get("/CountryNews", CountryNewsController);
 app.get("/WeatherNews", handleWeatherAPI);
 app.get("/APIOneFilter", getSports);
 // app.get('/APIOneFilter',APIOneFilterController)
-// app.get('/APIOneSearch',APIOneSearchController)
+app.get('/APIOneSearch',handleAPIOneSearch)
 
 // end call API
 

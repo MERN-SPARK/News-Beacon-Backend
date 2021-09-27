@@ -23,7 +23,7 @@ const handleWeatherAPI = require("./controllers/Weather.Controller");
 const handleAPIOneFilter = require("./controllers/APIonefilter.Controller");
 const handleAPIOneSearch = require("./controllers/APIonesearch.Controller");
 const handleAPITwo = require("./controllers/APItwo.Controller");
-const {userSignup,getAllUSer,userLogin}=require("./controllers/Signup.Controller")
+const {userSignup,getAllUSer,userLogin,protectUser,deleteUser}=require("./controllers/Signup.Controller")
 
 // // end call the function
 
@@ -46,8 +46,9 @@ app.get("/WeatherNews", handleWeatherAPI);
 
 // // start signup call
 app.post('/signup-user',userSignup)
-app.get('/getall-user',getAllUSer)
+app.get('/getall-user',protectUser,getAllUSer)
 app.post('/login-user',userLogin)
+app.delete('/delete-user/:id',deleteUser)
 
 // end call API
 

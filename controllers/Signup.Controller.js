@@ -20,8 +20,12 @@ const userSignup = async (req, res, next) => {
     },
   });
 }catch (err) {
-  res.status(400).json({ status: err });
-}
+  if (err) {
+
+    return res.status(400).json({
+        message: (err.name === 'MongoServerError' && err.code === 11000) ? 'Email or UserName already exists !' : err.message
+    });
+  }}
 };
 
 const getAllUSer = async (req, res, next) => {
@@ -34,7 +38,9 @@ const getAllUSer = async (req, res, next) => {
       },
     });
   } catch (err) {
-    res.status(400).json({ status: err });
+    
+    res.status(400).json({ status: err.message });
+   
   }
 };
 
@@ -69,5 +75,66 @@ const userLogin = async (req, res, next) => {
     res.status(400).json({ status: err });
   }
 };
+const protectUser = async (req, res, next) => {
+  try{
+  let token;
+  let error
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    token = req.headers.authorization.split(" ")[1];
+   
 
-module.exports = { userSignup, getAllUSer,userLogin };
+  }
+  if (!token) {
+    return next(new AppError("you are not log in", 401));
+  }
+  
+  const decoded =(jwt.verify)(token, "yaseen-secret-project")
+   
+  
+  
+    const freshuser = await UserModels.findById(decoded.id)
+  if(!freshuser){
+return next(new AppError('this token not exist'),401)
+  }
+  //check the user change paswword
+  console.log(decoded.iat);
+  if(freshuser.cahngepasswordafter(decoded.iat)){
+    return next(new AppError('the passowrd changed'),401)
+  }
+// grant acces 
+req.user = freshuser
+  next();
+} catch (err) {
+  res.status(400).json({ status:err.message});
+}
+};
+const deleteUser=async(req,res)=>{
+
+  try{
+      const get1test1 = await UserModels.findByIdAndDelete(req.params.id);
+      res.status(200).json({
+          status:'sucess',
+          data:null
+             
+      })
+  }catch(err){
+      res.status(400).json({status:err.message})
+  }
+}
+
+const adminuser = (...roles)=>{
+  return(req,res,next)=>{
+    // roles an array ['admin','lead-guide']
+    // role now user
+    if(!roles.includes(req.user.role)){
+      return next(new AppError('you do not hae premission to this action',403))
+    }
+    next()
+  }
+}
+
+
+module.exports = { userSignup, getAllUSer,userLogin,protectUser,deleteUser };

@@ -5,6 +5,7 @@ const user1Schema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "add the name "],
+    unique: false,
   },
   email: {
     type: String,
@@ -22,6 +23,7 @@ const user1Schema = new mongoose.Schema({
   },
   passwordConfirm: {
     type: String,
+    select: false,
     required: [true, "provide confirm password"],
     validate: {
       validator: function (ele) {
@@ -31,7 +33,25 @@ const user1Schema = new mongoose.Schema({
       message: "the password is different",
     },
   },
-  // changepassword:Date
+  changepassword:{
+    type:Date,
+    default:Date.now(),
+  },
+  role:{
+    type:String,
+    enum:['user','guide','load-guide','admin'],
+    default:'user'
+  }
 });
+
+user1Schema.methods.cahngepasswordafter = function(JWTTimestamp){
+  if(this.changepassword){
+const changestart = parseInt(this.changepassword.getTime()/1000,10)
+
+return JWTTimestamp < changestart
+
+}
+return false
+}
 const UserModels = mongoose.model("users", user1Schema);
 module.exports = UserModels;

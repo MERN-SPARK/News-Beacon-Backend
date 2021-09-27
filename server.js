@@ -13,12 +13,17 @@ app.use(express.json());
 // start call the function
 
 const { TopNewsController } = require("./controllers/TopNews.Controller");
-const {PopularNewsController} = require("./controllers/PopularNews.Controller");
-const {CountryNewsController} = require("./controllers/CountryNews.controller");
+const {
+  PopularNewsController,
+} = require("./controllers/PopularNews.Controller");
+const {
+  CountryNewsController,
+} = require("./controllers/CountryNews.controller");
 const handleWeatherAPI = require("./controllers/Weather.Controller");
 const handleAPIOneFilter = require("./controllers/APIonefilter.Controller");
 const handleAPIOneSearch = require("./controllers/APIonesearch.Controller");
 const handleAPITwo = require("./controllers/APItwo.Controller");
+const {userSignup,getAllUSer,userLogin}=require("./controllers/Signup.Controller")
 
 // // end call the function
 
@@ -35,10 +40,14 @@ app.get("/", (req, res) => {
 app.get("/TopNews", TopNewsController);
 app.get("/PopularNews", PopularNewsController);
 app.get("/CountryNews", CountryNewsController);
-app.get('/WeatherNews',handleWeatherAPI);
+app.get("/WeatherNews", handleWeatherAPI);
 // app.get('/APIOneFilter',APIOneFilterController)
 // app.get('/APIOneSearch',APIOneSearchController)
 
+// // start signup call
+app.post('/signup-user',userSignup)
+app.get('/getall-user',getAllUSer)
+app.post('/login-user',userLogin)
 
 // end call API
 

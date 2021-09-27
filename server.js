@@ -23,8 +23,19 @@ const {
 const handleWeatherAPI = require("./controllers/Weather.Controller");
 const handleAPIOneSearch = require("./controllers/APIonesearch.Controller");
 const handleAPITwo = require("./controllers/APItwo.Controller");
+const {
+  userSignup,
+  getAllUSer,
+  userLogin,
+  protectUser,
+  deleteUser,
+} = require("./controllers/Signup.Controller");
+const {
+  userSignup,
+  getAllUSer,
+  userLogin,
+} = require("./controllers/Signup.Controller");
 const getSports = require("./controllers/APIonefilter.Controller");
-
 
 // // end call the function
 
@@ -42,9 +53,17 @@ app.get("/TopNews", TopNewsController);
 app.get("/PopularNews", PopularNewsController);
 app.get("/CountryNews", CountryNewsController);
 app.get("/WeatherNews", handleWeatherAPI);
+// app.get('/APIOneFilter',APIOneFilterController)
+// app.get('/APIOneSearch',APIOneSearchController)
+
+// // start signup call
+app.post("/signup-user", userSignup);
+app.get("/getall-user", protectUser, getAllUSer);
+app.post("/login-user", userLogin);
+app.delete("/delete-user/:id", deleteUser);
 app.get("/APIOneFilter", getSports);
 // app.get('/APIOneFilter',APIOneFilterController)
-app.get('/APIOneSearch',handleAPIOneSearch)
+app.get("/APIOneSearch", handleAPIOneSearch);
 
 // end call API
 

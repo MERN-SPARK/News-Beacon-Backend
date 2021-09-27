@@ -29,19 +29,16 @@ const {
   userLogin,
   protectUser,
   deleteUser,
-} = require("./controllers/Signup.Controller");
-const {
-  userSignup,
-  getAllUSer,
-  userLogin,
+  forgetpassord,
+  resettpassord
 } = require("./controllers/Signup.Controller");
 const getSports = require("./controllers/APIonefilter.Controller");
 
 // // end call the function
 
 mongoose.connect(
-  `mongodb+srv://yaseen_saeed:ya9981063722@cluster0.ulxvz.mongodb.net/project301`,
-  { useNewUrlParser: true, useUnifiedTopology: true }
+  `mongodb+srv://yaseen_saeed:ya9981063722@cluster0.ulxvz.mongodb.net/project301?retryWrites=true`,
+  { useNewUrlParser: true, useUnifiedTopology: true}
 );
 
 app.get("/", (req, res) => {
@@ -60,6 +57,8 @@ app.get("/WeatherNews", handleWeatherAPI);
 app.post("/signup-user", userSignup);
 app.get("/getall-user", protectUser, getAllUSer);
 app.post("/login-user", userLogin);
+app.post("/forget-user", forgetpassord);
+app.patch("/reset-use/:token", resettpassord);
 app.delete("/delete-user/:id", deleteUser);
 app.get("/APIOneFilter", getSports);
 // app.get('/APIOneFilter',APIOneFilterController)

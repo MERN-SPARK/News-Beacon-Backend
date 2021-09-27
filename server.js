@@ -19,11 +19,13 @@ const {
 const {
   CountryNewsController,
 } = require("./controllers/CountryNews.controller");
+
 const handleWeatherAPI = require("./controllers/Weather.Controller");
-const handleAPIOneFilter = require("./controllers/APIonefilter.Controller");
 const handleAPIOneSearch = require("./controllers/APIonesearch.Controller");
 const handleAPITwo = require("./controllers/APItwo.Controller");
 const {userSignup,getAllUSer,userLogin}=require("./controllers/Signup.Controller")
+const getSports = require("./controllers/APIonefilter.Controller");
+
 
 // // end call the function
 
@@ -48,6 +50,9 @@ app.get("/WeatherNews", handleWeatherAPI);
 app.post('/signup-user',userSignup)
 app.get('/getall-user',getAllUSer)
 app.post('/login-user',userLogin)
+app.get("/APIOneFilter", getSports);
+// app.get('/APIOneFilter',APIOneFilterController)
+app.get('/APIOneSearch',handleAPIOneSearch)
 
 // end call API
 

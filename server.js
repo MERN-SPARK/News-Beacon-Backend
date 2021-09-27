@@ -30,11 +30,7 @@ const {
   protectUser,
   deleteUser,
 } = require("./controllers/Signup.Controller");
-const {
-  userSignup,
-  getAllUSer,
-  userLogin,
-} = require("./controllers/Signup.Controller");
+
 const getSports = require("./controllers/APIonefilter.Controller");
 
 // // end call the function

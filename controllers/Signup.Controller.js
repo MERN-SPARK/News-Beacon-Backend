@@ -4,7 +4,8 @@ const AppError = require("../Error/AppError");
 const sendEmail = require("./email");
 const sendEmail2 =require("./email2")
 const crypto = require("crypto");
-
+let check
+let data
 const signToken = (id) => {
   return jwt.sign({ id }, "yaseen-secret-project", {
     expiresIn: "90d",
@@ -15,6 +16,8 @@ const userSignup = async (req, res, next) => {
   try {
     const newUser = await UserModels.create(req.body);
     const token = signToken(newUser._id);
+    req.session.user=newUser._id
+    check=newUser
     res.status(200).json({
       status: "sucsess",
       token,
@@ -59,10 +62,11 @@ const userLogin = async (req, res, next) => {
     }
 
     // check if user exist && passord are coorect
+    
     const user = await UserModels.findOne({ email }).select("+password");
-
+    check=user
     const correct = await user.correctPassword(user.password, String(password));
-    console.log(correct);
+
 
     if (!user || !correct) {
       let err2 = new AppError("incrrorect email or password", 401);
@@ -73,9 +77,10 @@ const userLogin = async (req, res, next) => {
     // if every thing is ok
 
     const token = signToken(user._id);
+    
     res.status(200).json({
       status: "sucess",
-      token,
+      user,
     });
   } catch (err) {
     res.status(400).json({ status: err });
@@ -102,7 +107,6 @@ const protectUser = async (req, res, next) => {
       return next(new AppError("this token not exist"), 401);
     }
     //check the user change paswword
-    console.log(decoded.iat);
     if (freshuser.cahngepasswordafter(decoded.iat)) {
       return next(new AppError("the passowrd changed"), 401);
     }
@@ -146,6 +150,7 @@ const forgetpassord = async (req, res, next) => {
 
   // generate the random reset token
   const resetToken = user.createmewpassword();
+  console.log(resetToken)
   await user.save({validateforeSave:true});
 
   // send it to user email
@@ -158,8 +163,8 @@ const forgetpassord = async (req, res, next) => {
     await sendEmail2({
       email:user.email,
       subject:"your password reset Token is valid for 10 minutes",
-      message,
-      token:`<h1>${resetToken}</h1>`
+      message
+      
     });
     res.status(200).json({
       status: "success",
@@ -175,14 +180,13 @@ const forgetpassord = async (req, res, next) => {
     );
   }
 };
-const resettpassord = async(req, res, next) => {
+const resetPassword = async(req, res, next) => {
   // get yser based
   try{
   const hashedToken = crypto
     .createHash("sha256")
     .update(req.params.token)
     .digest("hex");
-    console.log(hashedToken);
   const user = await UserModels.findOne({
     passwordresetToken: hashedToken,
     passwordreserExpire: { $gt: Date.now() },
@@ -209,12 +213,33 @@ await user.save()
   // login
 };
 
+const sessionuser=(req,res)=>{
+  if(check){
+    return res.json({
+      auth:true,
+      message:'you are a signned',
+      data:check
+    })
+  }
+  return res.json({
+    auth:false,
+    message:'you are a not login'
+  })
+}
+const signout=(req,res)=>{
+check=false
+  res.json({
+    auth:false
+  })
+}
 module.exports = {
-  resettpassord,
+  resetPassword,
   forgetpassord,
   userSignup,
   getAllUSer,
   userLogin,
   protectUser,
   deleteUser,
+  sessionuser,
+  signout
 };

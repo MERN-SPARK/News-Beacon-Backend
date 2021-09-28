@@ -45,6 +45,10 @@ const user1Schema = new mongoose.Schema({
   },
   passwordresetToken: String,
   passwordreserExpire: Date,
+  isAuthenticated:{
+    type:Boolean,
+    default:true
+  }
 });
 
 user1Schema.pre("save", async function (next) {

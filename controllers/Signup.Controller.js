@@ -159,26 +159,26 @@ const forgetpassord = async (req, res, next) => {
   )}/api/v1/users/resetPassword/${resetToken}`;
 
   const message = ` Forget your password? Submit a PATCH reqeuest with your new password and passwordConfirm to:${resetURL}.\nIf you didn't forget your password, pleaseignore this email`;
-  // try {
-  //   await sendEmail2({
-  //     email:user.email,
-  //     subject:"your password reset Token is valid for 10 minutes",
-  //     message
+  try {
+    await sendEmail2({
+      email:user.email,
+      subject:"your password reset Token is valid for 10 minutes",
+      message
       
-  //   });
-  //   res.status(200).json({
-  //     status: "success",
-  //     message: "token sent to email",
-  //   });
-  // } catch (err) {
-  //   user.passwordresetToken = undefined;
-  //   user.passwordreserExpire = undefined;
-  //   await user.save({validateforeSave:true});
-  //   return next(
-  //     new AppError("there was an error sending the email. Try again later!"),
-  //     500
-  //   );
-  // }
+    });
+    res.status(200).json({
+      status: "success",
+      message: "token sent to email",
+    });
+  } catch (err) {
+    user.passwordresetToken = undefined;
+    user.passwordreserExpire = undefined;
+    await user.save({validateforeSave:true});
+    return next(
+      new AppError("there was an error sending the email. Try again later!"),
+      500
+    );
+  }
 };
 const resetPassword = async(req, res, next) => {
   // get yser based

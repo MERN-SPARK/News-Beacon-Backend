@@ -5,7 +5,6 @@ const sendEmail = require("./email");
 const sendEmail2 =require("./email2")
 const crypto = require("crypto");
 let check
-let data
 const signToken = (id) => {
   return jwt.sign({ id }, "yaseen-secret-project", {
     expiresIn: "90d",

@@ -8,8 +8,9 @@ const jwksClient = require("jwks-rsa");
 app.use(cors());
 require("dotenv").config();
 const mongoose = require("mongoose");
-const session = require('express-session')
+const session = require('express-session');
 const PORT = process.env.PORT;
+const MongoServer = process.env.MongoServer;
 app.use(express.json());
 // const RedisStore = require('connect-redis')(session)
 app.use(session({
@@ -46,13 +47,12 @@ const {
 } = require("./controllers/Signup.Controller");
 
 const getSports = require("./controllers/APIonefilter.Controller");
-
+const favorateRouter = require("./routes/favorateRouter");
 // // end call the function
-
-mongoose.connect(
-  `mongodb+srv://yaseen_saeed:ya9981063722@cluster0.ulxvz.mongodb.net/project301?retryWrites=true`,
-  { useNewUrlParser: true, useUnifiedTopology: true}
-);
+mongoose.connect(`${MongoServer}`, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 app.get("/", (req, res) => {
   req.session.view+=1
@@ -79,6 +79,7 @@ app.delete("/delete-user/:id", deleteUser);
 app.get("/APIOneFilter", getSports);
 // app.get('/APIOneFilter',APIOneFilterController)
 app.get("/APIOneSearch", handleAPIOneSearch);
+app.use("/favorate", favorateRouter);
 
 // end call API
 

@@ -10,6 +10,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const PORT = process.env.PORT;
 app.use(express.json());
+const MongoServer = process.env.MongoServer;
 // start call the function
 
 const { TopNewsController } = require("./controllers/TopNews.Controller");
@@ -30,17 +31,16 @@ const {
   protectUser,
   deleteUser,
   forgetpassord,
-  resettpassord
+  resettpassord,
 } = require("./controllers/Signup.Controller");
 
 const getSports = require("./controllers/APIonefilter.Controller");
-
+const favorateRouter = require("./routes/favorateRouter");
 // // end call the function
-
-mongoose.connect(
-  `mongodb+srv://yaseen_saeed:ya9981063722@cluster0.ulxvz.mongodb.net/project301?retryWrites=true`,
-  { useNewUrlParser: true, useUnifiedTopology: true}
-);
+mongoose.connect(`${MongoServer}`, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "I'm working" });
@@ -64,6 +64,7 @@ app.delete("/delete-user/:id", deleteUser);
 app.get("/APIOneFilter", getSports);
 // app.get('/APIOneFilter',APIOneFilterController)
 app.get("/APIOneSearch", handleAPIOneSearch);
+app.use("/favorate", favorateRouter);
 
 // end call API
 

@@ -65,8 +65,7 @@ user1Schema.pre("save", async function (next) {
 
   user1Schema.methods.correctPassword =   async function(JWTTimestamp,userpassword){
    let result =  await bcrypt.hash(userpassword, 12);
-   console.log(result);
-   console.log(JWTTimestamp);
+   
    return(await bcrypt.compare(userpassword, JWTTimestamp));
   ;}
 

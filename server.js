@@ -8,8 +8,9 @@ const jwksClient = require("jwks-rsa");
 app.use(cors());
 require("dotenv").config();
 const mongoose = require("mongoose");
-const session = require('express-session')
+const session = require('express-session');
 const PORT = process.env.PORT;
+const MongoServer = process.env.MongoServer;
 app.use(express.json());
 // const RedisStore = require('connect-redis')(session)
 app.use(session({

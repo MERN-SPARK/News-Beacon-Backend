@@ -36,5 +36,5 @@
     "redis": "^3.1.2",
     "validator": "^13.6.0"
   },
-  "proxy":"http://localhost:8070"
+  "proxy": "http://localhost:8070"
 }

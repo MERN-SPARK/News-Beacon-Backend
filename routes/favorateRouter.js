@@ -23,14 +23,13 @@ router.post("/", (req, res) => {
   res.json(new_user_favorate);
 });
 
-// update one; ( expected to enter the id to the item and in the body to give me the title,image,description ,url)
+// update adding one; ( expected to enter the id to the item and in the body to give me the title,image,description ,url)
 router.put("/:id", (req, res) => {
   let id = req.params.id;
-  let name = req.body[0].name;
-  let title = req.body[0].favorate[0].title;
-  let image = req.body[0].favorate[0].image;
-  let description = req.body[0].favorate[0].description;
-  let url = req.body[0].favorate[0].url;
+  let title = req.body[0].title;
+  let image = req.body[0].image;
+  let description = req.body[0].description;
+  let url = req.body[0].url;
 
   FavModel.find({ _id: `${id}` }).then((data) => {
     let favorate = data[0].favorate;
@@ -41,14 +40,13 @@ router.put("/:id", (req, res) => {
       url: url,
     });
 
-    data[0].name = name;
+    // data[0].name = name;
     data[0].favorate = favorate;
     // res.status(200).json(updated_data);
     console.log(data[0]);
     data[0].save();
   });
   res.send("its working");
-  //   let updated_data = FavModel.find({});
 });
 
 // delete one; I should have the id of the user and the id of the item

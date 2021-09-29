@@ -2,10 +2,17 @@
 
 const mongoose = require("mongoose");
 const favListSchema = require("../models/favorateListSchema");
-
+const validator = require("validator");
 const favSchema = new mongoose.Schema({
-  name: String,
-  favorate: [favListSchema],
+  name: {
+    type: String,
+    unique:true
+
+  },
+  favorate: {
+    type:Array,
+    unique:true
+  }
 });
 
 const FavModel = mongoose.model("favorate", favSchema);
@@ -34,6 +41,6 @@ let seedFav = () => {
 };
 
 module.exports = {
-  seedFav,
+  
   FavModel,
 };

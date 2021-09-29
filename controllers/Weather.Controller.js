@@ -10,7 +10,8 @@ const getWeather = (data) => {
       data.city_name,
       element.temp,
       element.min_temp,
-      element.max_temp
+      element.max_temp,
+      `https://www.weatherbit.io/static/img/icons/${element.weather.icon}.png`
     );
   });
   return weather;

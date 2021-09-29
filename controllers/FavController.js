@@ -55,7 +55,6 @@ user.favdata.push({
         }else{
             res.status(200).json({
                 state:false,
-                id:check.id
         })
     }
     // login

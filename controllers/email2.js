@@ -1,10 +1,10 @@
 let client = require('@sendgrid/mail')
 const sendEmail2=(options)=>{
-    client.setApiKey("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")
+    client.setApiKey("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")
 
 const message={
     to:options.email,
-    from:'Yasseenkouthe@ENG.HU.EDU.JO',
+    from:'yasseen1998@outlook.com',
 subject:options.subject,
 text:options.message,
 // html:options.token

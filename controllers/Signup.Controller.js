@@ -153,11 +153,9 @@ const forgetpassord = async (req, res, next) => {
   await user.save({validateforeSave:true});
 
   // send it to user email
-  const resetURL = `${req.protocol}://${req.get(
-    "host"
-  )}/api/v1/users/resetPassword/${resetToken}`;
+  // const resetURL = `copy this token : ${resetToken}`;
 
-  const message = ` Forget your password? Submit a PATCH reqeuest with your new password and passwordConfirm to:${resetURL}.\nIf you didn't forget your password, pleaseignore this email`;
+  const message = ` Forget your password? Submit a PATCH reqeuest with your new password and passwordConfirm and ${resetToken} in.\nIf you didn't forget your password, pleaseignore this email`;
   try {
     await sendEmail2({
       email:user.email,

@@ -80,4 +80,32 @@ user.favdata.push({
           res.status(400).json({ status: err.message });
         }
       };
-  module.exports={addfav,resdata,checkfav,endfav,getfav}
+      const delfav = async (req, res, next) => {
+        try {
+          title=req.body.title
+          const user = await FavModels.findById(req.params.id);
+      let list= user.favdata
+          for(let i =0;i<list.length;i++){
+            
+            
+            console.log(list[i]["title"]);
+            if( list[i]["title"]==req.body.title){
+               list.splice(i,1);
+              console.log("hello");
+              break;
+              
+            }
+            }
+            user.favdata=list
+            user.save()
+      
+          res.status(200).json({
+            status: "no item",
+            user
+           
+          });
+        } catch (err) {
+          res.status(400).json({ status: err.message });
+        }
+      };
+  module.exports={addfav,resdata,checkfav,endfav,getfav,delfav}

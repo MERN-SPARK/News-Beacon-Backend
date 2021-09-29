@@ -83,12 +83,13 @@ app.use("/favorate", favorateRouter);
 
 // end call API
 
-const{addfav,resdata,checkfav,endfav,getfav}=require("./controllers/FavController")
+const{addfav,resdata,checkfav,endfav,getfav,delfav}=require("./controllers/FavController")
 app.post("/addfav",addfav)
 app.get("/endfav",endfav)
 app.get("/checkfav",checkfav)
 app.patch("/resdata/:id",resdata)
 app.get('/getfav/:id',getfav)
+app.patch('/delfav/:id',delfav)
 
 app.listen(PORT, () => {
   console.log(`listening to port 8070`);

@@ -166,6 +166,7 @@ const forgetpassord = async (req, res, next) => {
     res.status(200).json({
       status: "success",
       message: "token sent to email",
+      resetToken
     });
   } catch (err) {
     user.passwordresetToken = undefined;

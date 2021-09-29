@@ -3,7 +3,7 @@ const { json } = require("express");
 const express = require("express");
 const router = express.Router();
 
-const { seedFav, FavModel } = require("../models/favSchema");
+const {FavModel } = require("../models/favSchema");
 
 // getting one favorate list
 
@@ -16,7 +16,7 @@ router.get("/:id", (req, res) => {
 
 // Create one (when the user sign up we need his name to make him a new file)
 router.post("/", (req, res) => {
-  let item = req.body[0].name;
+  let item = req.body.name;
   let name = item;
   let new_user_favorate = new FavModel({ name: name }, []);
   new_user_favorate.save();
@@ -24,7 +24,7 @@ router.post("/", (req, res) => {
 });
 
 // update adding one; ( expected to enter the id to the item and in the body to give me the title,image,description ,url)
-router.put("/:id", (req, res) => {
+router.patch("/:id", (req, res) => {
   let id = req.params.id;
   let title = req.body[0].title;
   let image = req.body[0].image;

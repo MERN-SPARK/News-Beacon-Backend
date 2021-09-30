@@ -4,7 +4,7 @@ const fav1Schema = new mongoose.Schema({
     name: {
       type: String,
       required: [true, "add the name "],
-      unique: true,
+     
     },
     favdata:Array
 })
